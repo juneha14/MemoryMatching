@@ -1,0 +1,6 @@
+framework module Pods_MemoryMatching {
+  umbrella header "Pods-MemoryMatching-umbrella.h"
+
+  export *
+  module * { export * }
+}

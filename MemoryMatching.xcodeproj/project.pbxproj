@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4DAE6F9CCD6EC384C026976B /* Pods_MemoryMatchingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B53898E610B04595988C909 /* Pods_MemoryMatchingTests.framework */; };
+		A2A741DD80570577F4C41023 /* Pods_MemoryMatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A29EA83FD9703A79E40DC9F /* Pods_MemoryMatching.framework */; };
 		CDBCFFCF2332CECE0058F258 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */; };
 		CDBCFFD12332CECE0058F258 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFD02332CECE0058F258 /* ViewController.swift */; };
 		CDBCFFD42332CECE0058F258 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD22332CECE0058F258 /* Main.storyboard */; };
@@ -26,6 +28,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00CBA3EA63183148A045630F /* Pods-MemoryMatching.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatching.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatching/Pods-MemoryMatching.debug.xcconfig"; sourceTree = "<group>"; };
+		1A29EA83FD9703A79E40DC9F /* Pods_MemoryMatching.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMatching.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B53898E610B04595988C909 /* Pods_MemoryMatchingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MemoryMatchingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B08B669A626C1E08DDB7415 /* Pods-MemoryMatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatching/Pods-MemoryMatching.release.xcconfig"; sourceTree = "<group>"; };
+		86BF7DCC8029956A002EE9E2 /* Pods-MemoryMatchingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatchingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatchingTests/Pods-MemoryMatchingTests.release.xcconfig"; sourceTree = "<group>"; };
+		A584FE9A4C7C33815743AF11 /* Pods-MemoryMatchingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatchingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatchingTests/Pods-MemoryMatchingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDBCFFCB2332CECE0058F258 /* MemoryMatching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMatching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDBCFFD02332CECE0058F258 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2A741DD80570577F4C41023 /* Pods_MemoryMatching.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,18 +59,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DAE6F9CCD6EC384C026976B /* Pods_MemoryMatchingTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01DA0591EA89B7A03401964D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A29EA83FD9703A79E40DC9F /* Pods_MemoryMatching.framework */,
+				4B53898E610B04595988C909 /* Pods_MemoryMatchingTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7930404B780B770FD6B323EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				00CBA3EA63183148A045630F /* Pods-MemoryMatching.debug.xcconfig */,
+				6B08B669A626C1E08DDB7415 /* Pods-MemoryMatching.release.xcconfig */,
+				A584FE9A4C7C33815743AF11 /* Pods-MemoryMatchingTests.debug.xcconfig */,
+				86BF7DCC8029956A002EE9E2 /* Pods-MemoryMatchingTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CDBCFFC22332CECE0058F258 = {
 			isa = PBXGroup;
 			children = (
 				CDBCFFCD2332CECE0058F258 /* MemoryMatching */,
 				CDBCFFE22332CED20058F258 /* MemoryMatchingTests */,
 				CDBCFFCC2332CECE0058F258 /* Products */,
+				7930404B780B770FD6B323EC /* Pods */,
+				01DA0591EA89B7A03401964D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,9 +135,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CDBCFFE82332CED20058F258 /* Build configuration list for PBXNativeTarget "MemoryMatching" */;
 			buildPhases = (
+				DA6B833C7E731A6040E3EC52 /* [CP] Check Pods Manifest.lock */,
 				CDBCFFC72332CECE0058F258 /* Sources */,
 				CDBCFFC82332CECE0058F258 /* Frameworks */,
 				CDBCFFC92332CECE0058F258 /* Resources */,
+				BCE8B6792032EE0F1E2111EB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -120,6 +154,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CDBCFFEB2332CED20058F258 /* Build configuration list for PBXNativeTarget "MemoryMatchingTests" */;
 			buildPhases = (
+				AAD2DDCFE6BAF67A79D407B4 /* [CP] Check Pods Manifest.lock */,
 				CDBCFFDB2332CED20058F258 /* Sources */,
 				CDBCFFDC2332CED20058F258 /* Frameworks */,
 				CDBCFFDD2332CED20058F258 /* Resources */,
@@ -191,6 +226,77 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AAD2DDCFE6BAF67A79D407B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MemoryMatchingTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCE8B6792032EE0F1E2111EB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMatching/Pods-MemoryMatching-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MemoryMatching/Pods-MemoryMatching-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA6B833C7E731A6040E3EC52 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MemoryMatching-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CDBCFFC72332CECE0058F258 /* Sources */ = {
@@ -358,6 +464,7 @@
 		};
 		CDBCFFE92332CED20058F258 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00CBA3EA63183148A045630F /* Pods-MemoryMatching.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -376,6 +483,7 @@
 		};
 		CDBCFFEA2332CED20058F258 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B08B669A626C1E08DDB7415 /* Pods-MemoryMatching.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -394,6 +502,7 @@
 		};
 		CDBCFFEC2332CED20058F258 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A584FE9A4C7C33815743AF11 /* Pods-MemoryMatchingTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -415,6 +524,7 @@
 		};
 		CDBCFFED2332CED20058F258 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86BF7DCC8029956A002EE9E2 /* Pods-MemoryMatchingTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
