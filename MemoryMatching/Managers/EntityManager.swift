@@ -37,25 +37,18 @@ final class EntityManager {
 
     /// Creates new game by randomly choosing 10 cards and duplicating them
     func createNewGame() -> [Card] {
-        let shuffledCards = entities.shuffled()
-        var cards = shuffledCards[0..<10]
+        let shuffled = entities.shuffled()[0..<10]
+        var newGameCards = [Card]()
 
-        for card in cards {
-            cards.append(card.copy() as! Card)
+        // TODO: change iteration to n depending on how many consecutive cards need to be matched
+        for _ in 1...2 {
+            for card in shuffled {
+                newGameCards.append(card.copy() as! Card)
+            }
         }
 
-        currentGameCards = cards.shuffled()
+        currentGameCards = newGameCards.shuffled()
+        print(currentGameCards.count)
         return currentGameCards
     }
-
-
-    // MARK: Helpers
-
-
-
-
-
-
-
-
 }

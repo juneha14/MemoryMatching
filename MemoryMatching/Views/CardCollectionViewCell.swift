@@ -38,7 +38,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         cardImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.height.width.equalTo(100)
+            make.height.width.equalToSuperview()
         }
     }
 

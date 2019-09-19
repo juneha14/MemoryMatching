@@ -17,14 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
 
-        // Custom flow layout
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.estimatedItemSize = CGSize(width: 100, height: 100)
-        flowLayout.minimumLineSpacing = 3
-        flowLayout.minimumInteritemSpacing = 1
-        flowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-
-        let vc = CardsCollectionViewController(collectionViewLayout: flowLayout)
+        let vc = CardsCollectionViewController()
         window?.rootViewController = vc
 
         return true

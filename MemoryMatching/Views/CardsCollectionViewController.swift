@@ -7,16 +7,24 @@
 //
 
 import UIKit
+import SnapKit
 
 
-class CardsCollectionViewController: UICollectionViewController {
+class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     private var cards = [Card]()
+    private var collectionView: UICollectionView!
+
+    private struct Constants {
+        static let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        static let minimumLineSpacing: CGFloat = 3.0
+        static let minimumInteritemSpacing: CGFloat = 1.0
+    }
 
 
     // MARK: Init
 
-    override init(collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(collectionViewLayout: layout)
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -29,10 +37,22 @@ class CardsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.backgroundColor = .white
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = Constants.minimumLineSpacing
+        layout.minimumInteritemSpacing = Constants.minimumInteritemSpacing
+        layout.sectionInset = Constants.insets
+        layout.scrollDirection = .vertical
 
-        // Register cell class
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
+        view.addSubview(collectionView)
+
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
 
         EntityManager.instance.initialize { [weak self] in
             self?.cards = EntityManager.instance.createNewGame()
@@ -41,22 +61,32 @@ class CardsCollectionViewController: UICollectionViewController {
     }
 
 
+    // MARK: UICollectionViewDelegateFlowLayout
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // itemWidth = (collectionView width) / (number of columns) - (left inset + right inset) - (number of columns * minimumInteritemSpacing)
+        let itemWidth = collectionView.frame.width / 4.0 - (Constants.insets.left + Constants.insets.right) - (4 * Constants.minimumInteritemSpacing)
+        return CGSize(width: itemWidth, height: itemWidth)
+    }
+
+
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cards.count
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell else {
             return UICollectionViewCell()
         }
-    
+
+        cell.backgroundColor = .red //DEBUG
         cell.card = cards[indexPath.row]
     
         return cell
@@ -65,33 +95,6 @@ class CardsCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDelegate
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
-    }
-    */
 
 }
