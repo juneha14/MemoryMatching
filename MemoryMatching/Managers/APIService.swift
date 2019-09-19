@@ -38,8 +38,6 @@ struct APIService {
                 return
             }
 
-            print(data)
-
             guard error == nil else {
                 DispatchQueue.main.async {
                     completion(.failure(.networkError(error: error!)))

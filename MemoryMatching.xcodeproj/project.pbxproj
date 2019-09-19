@@ -10,7 +10,6 @@
 		4DAE6F9CCD6EC384C026976B /* Pods_MemoryMatchingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B53898E610B04595988C909 /* Pods_MemoryMatchingTests.framework */; };
 		A2A741DD80570577F4C41023 /* Pods_MemoryMatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A29EA83FD9703A79E40DC9F /* Pods_MemoryMatching.framework */; };
 		CDBCFFCF2332CECE0058F258 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */; };
-		CDBCFFD12332CECE0058F258 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFD02332CECE0058F258 /* ViewController.swift */; };
 		CDBCFFD62332CED20058F258 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD52332CED20058F258 /* Assets.xcassets */; };
 		CDBCFFD92332CED20058F258 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD72332CED20058F258 /* LaunchScreen.storyboard */; };
 		CDBCFFE42332CED20058F258 /* MemoryMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFE32332CED20058F258 /* MemoryMatchingTests.swift */; };
@@ -18,6 +17,8 @@
 		CDBCFFF42332E4F50058F258 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF32332E4F50058F258 /* APIService.swift */; };
 		CDBCFFF62332E9F90058F258 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF52332E9F90058F258 /* Result.swift */; };
 		CDBCFFFA2332EE8E0058F258 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF92332EE8E0058F258 /* Card.swift */; };
+		CDBCFFFC233325600058F258 /* CardsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFB233325600058F258 /* CardsCollectionViewController.swift */; };
+		CDBCFFFE233326170058F258 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +40,6 @@
 		A584FE9A4C7C33815743AF11 /* Pods-MemoryMatchingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatchingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatchingTests/Pods-MemoryMatchingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDBCFFCB2332CECE0058F258 /* MemoryMatching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMatching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CDBCFFD02332CECE0058F258 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CDBCFFD52332CED20058F258 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CDBCFFD82332CED20058F258 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CDBCFFDA2332CED20058F258 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +50,8 @@
 		CDBCFFF32332E4F50058F258 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		CDBCFFF52332E9F90058F258 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CDBCFFF92332EE8E0058F258 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		CDBCFFFB233325600058F258 /* CardsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsCollectionViewController.swift; sourceTree = "<group>"; };
+		CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +150,8 @@
 		CDBCFFF72332EE6E0058F258 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CDBCFFD02332CECE0058F258 /* ViewController.swift */,
+				CDBCFFFB233325600058F258 /* CardsCollectionViewController.swift */,
+				CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -335,11 +338,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDBCFFD12332CECE0058F258 /* ViewController.swift in Sources */,
 				CDBCFFFA2332EE8E0058F258 /* Card.swift in Sources */,
 				CDBCFFF62332E9F90058F258 /* Result.swift in Sources */,
 				CDBCFFCF2332CECE0058F258 /* AppDelegate.swift in Sources */,
 				CDBCFFF42332E4F50058F258 /* APIService.swift in Sources */,
+				CDBCFFFE233326170058F258 /* CardCollectionViewCell.swift in Sources */,
+				CDBCFFFC233325600058F258 /* CardsCollectionViewController.swift in Sources */,
 				CDBCFFEF2332E2700058F258 /* EntityManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,12 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
 
-        let vc = ViewController()
-        window?.rootViewController = vc
+        // Custom flow layout
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.estimatedItemSize = CGSize(width: 30, height: 30)
+        flowLayout.minimumLineSpacing = 5
+        flowLayout.minimumInteritemSpacing = 5
+        flowLayout.sectionInset = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
 
-        EntityManager.instance.initialize { [weak self] in
-            print("Completed")
-        }
+        let vc = CardsCollectionViewController(collectionViewLayout: flowLayout)
+        window?.rootViewController = vc
 
         return true
     }

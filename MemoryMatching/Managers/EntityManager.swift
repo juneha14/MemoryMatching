@@ -13,6 +13,7 @@ final class EntityManager {
     static let instance = EntityManager()
 
     private(set) var entities = [Card]()
+    private var currentGameCards = [Card]()
 
 
     // Use singleton
@@ -32,6 +33,19 @@ final class EntityManager {
                 completion()
             }
         }
+    }
+
+    /// Creates new game by randomly choosing 10 cards and duplicating them
+    func createNewGame() -> [Card] {
+        let shuffledCards = entities.shuffled()
+        var cards = Array(shuffledCards[0..<10])
+
+        for card in cards {
+            cards.append(card.copy() as! Card)
+        }
+
+        currentGameCards = cards
+        return cards
     }
 
 
