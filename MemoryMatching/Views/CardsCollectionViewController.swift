@@ -29,6 +29,8 @@ class CardsCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        collectionView.backgroundColor = .white
+
         // Register cell class
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
 

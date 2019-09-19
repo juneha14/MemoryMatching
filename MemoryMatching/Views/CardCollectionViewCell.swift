@@ -29,17 +29,30 @@ class CardCollectionViewCell: UICollectionViewCell {
 
         cardImageView = UIImageView()
         cardImageView.contentMode = .scaleAspectFit
+        cardImageView.clipsToBounds = true
+        cardImageView.backgroundColor = .black
+        cardImageView.layer.borderColor = UIColor.blue.cgColor
+        cardImageView.layer.borderWidth = 1.5
         addSubview(cardImageView)
 
         cardImageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(30)
+            make.height.width.equalTo(100)
         }
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+
+    // MARK: Lifecycle
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        cardImageView.layer.cornerRadius = cardImageView.frame.height / 6.0
     }
 
 

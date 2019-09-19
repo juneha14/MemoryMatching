@@ -38,14 +38,14 @@ final class EntityManager {
     /// Creates new game by randomly choosing 10 cards and duplicating them
     func createNewGame() -> [Card] {
         let shuffledCards = entities.shuffled()
-        var cards = Array(shuffledCards[0..<10])
+        var cards = shuffledCards[0..<10]
 
         for card in cards {
             cards.append(card.copy() as! Card)
         }
 
-        currentGameCards = cards
-        return cards
+        currentGameCards = cards.shuffled()
+        return currentGameCards
     }
 
 
