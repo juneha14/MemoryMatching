@@ -11,7 +11,7 @@ import SnapKit
 
 
 class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    private var cards = [Card]()
+    private var cardViewModels = [CardViewModel]()
     private var collectionView: UICollectionView!
 
     private struct Constants {
@@ -55,7 +55,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         EntityManager.instance.initialize { [weak self] in
-            self?.cards = EntityManager.instance.createNewGame()
+            self?.cardViewModels = EntityManager.instance.createNewGame()
             self?.collectionView.reloadData()
         }
     }
@@ -78,7 +78,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cards.count
+        return cardViewModels.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -87,7 +87,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         cell.backgroundColor = .red //DEBUG
-        cell.card = cards[indexPath.row]
+        cell.viewModel = cardViewModels[indexPath.row]
     
         return cell
     }
@@ -95,6 +95,36 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     // MARK: UICollectionViewDelegate
 
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell else {
+            return
+        }
 
+        EntityManager.instance.didSelectCard(cell.viewModel, showCards: showCards(_:), hideCards: hideCards(_:))
+    }
+
+
+    // MARK: Helpers
+
+    private func showCards(_ cardViewModels: [CardViewModel]) {
+        for viewModel in cardViewModels {
+            let index = EntityManager.instance.index(of: viewModel)
+            guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
+                return
+            }
+
+            cell.cardImageView.alpha = viewModel.alpha
+        }
+    }
+
+    private func hideCards(_ cardViewModels: [CardViewModel]) {
+        for viewModel in cardViewModels {
+            let index = EntityManager.instance.index(of: viewModel)
+            guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
+                return
+            }
+
+            cell.cardImageView.alpha = viewModel.alpha
+        }
+    }
 }

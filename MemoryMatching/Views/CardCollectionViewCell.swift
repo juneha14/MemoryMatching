@@ -13,13 +13,13 @@ import SDWebImage
 class CardCollectionViewCell: UICollectionViewCell {
     static let identifier = "CardCollectionViewCell"
 
-    var card: Card! {
+    var viewModel: CardViewModel! {
         didSet {
-            render(card)
+            render(viewModel)
         }
     }
 
-    private var cardImageView: UIImageView!
+    var cardImageView: UIImageView!
 
 
     // MARK: Init
@@ -28,6 +28,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
 
         cardImageView = UIImageView()
+        cardImageView.translatesAutoresizingMaskIntoConstraints = false
         cardImageView.contentMode = .scaleAspectFit
         cardImageView.clipsToBounds = true
         cardImageView.backgroundColor = .black
@@ -58,8 +59,9 @@ class CardCollectionViewCell: UICollectionViewCell {
 
     // MARK: API
 
-    func render(_ card: Card) {
-        let imageURL = URL(string: card.image.src)
+    func render(_ viewModel: CardViewModel) {
+        let imageURL = URL(string: viewModel.card.image.src)
         cardImageView.sd_setImage(with: imageURL, completed: nil)
+        cardImageView.alpha = viewModel.alpha
     }
 }
