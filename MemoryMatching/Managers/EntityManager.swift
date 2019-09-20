@@ -9,38 +9,52 @@
 import Foundation
 
 
+enum GameState {
+    case loading
+    case presenting([CardViewModel])
+    case failed(Error)
+    case finished
+}
+
+protocol EntityManagerDelegate: AnyObject {
+    func entityManager(_ entityManager: EntityManager, hideCards cards: [CardViewModel])
+}
+
 final class EntityManager {
-    static let instance = EntityManager()
+    typealias Handler = (GameState) -> Void
 
-    typealias showCards = (([CardViewModel]) -> Void)?
-    typealias hideCards = (([CardViewModel]) -> Void)?
+    weak var delegate: EntityManagerDelegate?
 
+    /// Original card entities fetched from Shopify store
     private var entities = [CardViewModel]()
-    private var currentGameCards = [CardViewModel]()
+
+    /// The current subset of cards belonging to a particular game
+    private(set) var currentGameCards = [CardViewModel]()
+
+    /// Cards that are flipped for guessing
     private var selectedCards = [CardViewModel]()
-
-
-    // Use singleton
-    private init() { }
 
 
     // MARK: API
 
     /// Makes a network request to grab all products from Shopify store
-    func initialize(completion: @escaping () -> Void) {
+    func fetchCards(completion: @escaping Handler) {
         APIService.instance.get { [weak self] (result: Result<Card.Container, APIService.APIError>) in
             switch result {
-            case let .success(cardContainer):
-                self?.entities = cardContainer.products.map({ CardViewModel(card: $0) })
-                completion()
-            case .failure(_):
-                completion()
+            case let .success(cards):
+                self?.storeEntitiesAndCreateGame(cards, completion: completion)
+            case let .failure(error):
+                completion(.failed(error))
             }
         }
     }
 
     /// Creates new game by randomly choosing 10 cards and duplicating them
     func createNewGame() -> [CardViewModel] {
+        guard !entities.isEmpty else {
+            return []
+        }
+
         let shuffled = entities.shuffled()[0..<10]
         var newGameCards = [CardViewModel]()
 
@@ -55,14 +69,13 @@ final class EntityManager {
         return currentGameCards
     }
 
-    func didSelectCard(_ card: CardViewModel?, showCards: showCards, hideCards: hideCards) {
+    func didSelectCard(_ card: CardViewModel?) {
         guard let card = card, card.state == .notGuessed else {
             return
         }
 
         card.set(.flipped)
         selectedCards.append(card)
-        showCards?(selectedCards)
 
         if cardsDoMatch(selectedCards) {
             if selectedCards.count == 2 {
@@ -80,25 +93,30 @@ final class EntityManager {
 
             let cardsToHide = selectedCards
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1)) {
-                hideCards?(cardsToHide)
+                self.delegate?.entityManager(self, hideCards: cardsToHide)
             }
 
             selectedCards.removeAll()
         }
     }
 
-    func index(of cardViewModel: CardViewModel) -> Int {
+    func index(of cardViewModel: CardViewModel) -> Int? {
         for (i, viewModel) in currentGameCards.enumerated() {
             if viewModel === cardViewModel {
                 return i
             }
         }
 
-        return 0
+        return nil
     }
 
 
     // MARK: Helpers
+
+    private func storeEntitiesAndCreateGame(_ cards: Card.Container, completion: @escaping Handler) {
+        entities = cards.products.map({ CardViewModel(card: $0) })
+        completion(.presenting(createNewGame()))
+    }
 
     private func cardsDoMatch(_ cards: [CardViewModel]) -> Bool {
         guard cards.count > 1 else {

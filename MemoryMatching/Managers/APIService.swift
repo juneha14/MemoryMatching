@@ -30,7 +30,7 @@ struct APIService {
         var request = URLRequest(url: baseURL)
         request.httpMethod = "GET"
 
-        let task = URLSession.shared.dataTask(with: baseURL) { (data, _, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(.failure(.noResponse))

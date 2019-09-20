@@ -46,28 +46,15 @@ class CardViewModel: NSCopying {
     }
 }
 
-class Card: Codable, NSCopying {
+struct Card: Codable {
     let id: Int64
     let image: Image
 
     struct Container: Codable {
         let products: [Card]
     }
-
-
-    // MARK: Init
-
-    init(id: Int64, image: Image) {
-        self.id = id
-        self.image = image
-    }
-
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = Card(id: id, image: image)
-        return copy
-    }
 }
 
-class Image: Codable {
+struct Image: Codable {
     let src: String
 }

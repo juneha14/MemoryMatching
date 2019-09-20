@@ -13,13 +13,22 @@ import SDWebImage
 class CardCollectionViewCell: UICollectionViewCell {
     static let identifier = "CardCollectionViewCell"
 
+    lazy var cardImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .black
+        imageView.layer.borderColor = UIColor.blue.cgColor
+        imageView.layer.borderWidth = 1.5
+        return imageView
+    }()
+
     var viewModel: CardViewModel! {
         didSet {
             render(viewModel)
         }
     }
-
-    var cardImageView: UIImageView!
 
 
     // MARK: Init
@@ -27,13 +36,6 @@ class CardCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        cardImageView = UIImageView()
-        cardImageView.translatesAutoresizingMaskIntoConstraints = false
-        cardImageView.contentMode = .scaleAspectFit
-        cardImageView.clipsToBounds = true
-        cardImageView.backgroundColor = .black
-        cardImageView.layer.borderColor = UIColor.blue.cgColor
-        cardImageView.layer.borderWidth = 1.5
         addSubview(cardImageView)
 
         cardImageView.snp.makeConstraints { make in

@@ -10,9 +10,10 @@ import UIKit
 import SnapKit
 
 
-class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    private var cardViewModels = [CardViewModel]()
+class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, EntityManagerDelegate {
+
     private var collectionView: UICollectionView!
+    private var entityManager = EntityManager()
 
     private struct Constants {
         static let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -37,6 +38,8 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        entityManager.delegate = self
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = Constants.minimumLineSpacing
         layout.minimumInteritemSpacing = Constants.minimumInteritemSpacing
@@ -54,9 +57,17 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
             make.edges.equalToSuperview()
         }
 
-        EntityManager.instance.initialize { [weak self] in
-            self?.cardViewModels = EntityManager.instance.createNewGame()
-            self?.collectionView.reloadData()
+        entityManager.fetchCards { [weak self] state in
+            switch state {
+            case .loading:
+                break
+            case .presenting(_):
+                self?.collectionView.reloadData()
+            case .finished:
+                break
+            case .failed(let error):
+                print(error.localizedDescription)
+            }
         }
     }
 
@@ -78,7 +89,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cardViewModels.count
+        return entityManager.currentGameCards.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -87,7 +98,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         cell.backgroundColor = .red //DEBUG
-        cell.viewModel = cardViewModels[indexPath.row]
+        cell.viewModel = entityManager.currentGameCards[indexPath.row]
     
         return cell
     }
@@ -100,31 +111,21 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
             return
         }
 
-        EntityManager.instance.didSelectCard(cell.viewModel, showCards: showCards(_:), hideCards: hideCards(_:))
+        cell.cardImageView.alpha = 1
+        entityManager.didSelectCard(cell.viewModel)
     }
 
 
-    // MARK: Helpers
+    // MARK: EntityManagerDelegate
 
-    private func showCards(_ cardViewModels: [CardViewModel]) {
-        for viewModel in cardViewModels {
-            let index = EntityManager.instance.index(of: viewModel)
-            guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
+    func entityManager(_ entityManager: EntityManager, hideCards cards: [CardViewModel]) {
+        for card in cards {
+            guard let index = entityManager.index(of: card),
+                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
                 return
             }
 
-            cell.cardImageView.alpha = viewModel.alpha
-        }
-    }
-
-    private func hideCards(_ cardViewModels: [CardViewModel]) {
-        for viewModel in cardViewModels {
-            let index = EntityManager.instance.index(of: viewModel)
-            guard let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
-                return
-            }
-
-            cell.cardImageView.alpha = viewModel.alpha
+            cell.cardImageView.alpha = card.alpha
         }
     }
 }
