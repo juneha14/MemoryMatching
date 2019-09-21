@@ -10,10 +10,14 @@ import UIKit
 import SnapKit
 
 
-class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, EntityManagerDelegate {
+protocol CardsCollectionViewControllerDelegate: AnyObject {
+    func cardsCollectionViewController(_ cardsCollectionViewController: CardsCollectionViewController, didSelect card: CardViewModel)
+}
 
+class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    weak var delegate: CardsCollectionViewControllerDelegate?
     private var collectionView: UICollectionView!
-    private var entityManager = EntityManager()
+    private var cards: [CardViewModel]
 
     private struct Constants {
         static let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -24,7 +28,8 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     // MARK: Init
 
-    init() {
+    init(cards: [CardViewModel]) {
+        self.cards = cards
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -37,8 +42,6 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        entityManager.delegate = self
 
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = Constants.minimumLineSpacing
@@ -56,18 +59,19 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
 
-        entityManager.fetchCards { [weak self] state in
-            switch state {
-            case .loading:
-                break
-            case .presenting(_):
-                self?.collectionView.reloadData()
-            case .finished:
-                break
-            case .failed(let error):
-                print(error.localizedDescription)
+
+    // MARK: API
+
+    func hideCards(_ cards: [CardViewModel]) {
+        for card in cards {
+            guard let index = self.cards.firstIndex(where: { $0 === card }),
+                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
+                return
             }
+
+            cell.cardImageView.alpha = card.alpha
         }
     }
 
@@ -89,7 +93,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return entityManager.currentGameCards.count
+        return cards.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -98,7 +102,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         cell.backgroundColor = .red //DEBUG
-        cell.viewModel = entityManager.currentGameCards[indexPath.row]
+        cell.viewModel = cards[indexPath.row]
     
         return cell
     }
@@ -112,20 +116,6 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         cell.cardImageView.alpha = 1
-        entityManager.didSelectCard(cell.viewModel)
-    }
-
-
-    // MARK: EntityManagerDelegate
-
-    func entityManager(_ entityManager: EntityManager, hideCards cards: [CardViewModel]) {
-        for card in cards {
-            guard let index = entityManager.index(of: card),
-                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
-                return
-            }
-
-            cell.cardImageView.alpha = card.alpha
-        }
+        delegate?.cardsCollectionViewController(self, didSelect: cell.viewModel)
     }
 }

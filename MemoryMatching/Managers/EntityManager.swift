@@ -92,7 +92,7 @@ final class EntityManager {
             }
 
             let cardsToHide = selectedCards
-            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(1)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.delegate?.entityManager(self, hideCards: cardsToHide)
             }
 

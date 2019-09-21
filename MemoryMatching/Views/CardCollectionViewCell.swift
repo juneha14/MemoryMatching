@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import SDWebImage
 
+
 class CardCollectionViewCell: UICollectionViewCell {
     static let identifier = "CardCollectionViewCell"
 
