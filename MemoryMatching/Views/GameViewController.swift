@@ -12,6 +12,7 @@ import SnapKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GameLogicControllerDelegate {
 
+    private lazy var scoreView = ScoreView()
     private var collectionView: UICollectionView!
     private let logicController: GameLogicController
     private var shownViewController: UIViewController?
@@ -60,14 +61,25 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         layout.scrollDirection = .vertical
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
+
+        view.addSubview(scoreView)
         view.addSubview(collectionView)
 
+        scoreView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.height.equalTo(150)
+        }
+
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(scoreView.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview().offset(10)
         }
     }
 
