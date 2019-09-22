@@ -11,7 +11,7 @@ import SnapKit
 
 
 class LoadingViewController: UIViewController {
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .white)
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
 
 
     override func viewDidLoad() {

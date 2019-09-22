@@ -60,9 +60,9 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
 
 
-    // MARK: API
+    // MARK: Helpers
 
-    func render(_ viewModel: CardViewModel) {
+    private func render(_ viewModel: CardViewModel) {
         let imageURL = URL(string: viewModel.card.image.src)
         cardImageView.sd_setImage(with: imageURL, completed: nil)
         cardImageView.alpha = viewModel.alpha

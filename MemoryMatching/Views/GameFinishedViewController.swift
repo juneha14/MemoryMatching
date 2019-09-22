@@ -39,8 +39,22 @@ class GameFinishedViewController: UIViewController {
         return button
     }()
 
+    private lazy var returnToMenuButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont(name: "AvenirNext-Regular", size: 17.0)
+        button.setTitle("Return to Menu", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor.clear
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1.0
+        button.layer.cornerRadius = 5.0
+        button.clipsToBounds = true
+        return button
+    }()
+
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.label, self.playAgainButton])
+        let stackView = UIStackView(arrangedSubviews: [self.label, self.playAgainButton, self.returnToMenuButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
@@ -53,6 +67,8 @@ class GameFinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor(red:0.55, green:0.38, blue:0.38, alpha:1.0)
+        view.layer.cornerRadius = 5.0
         view.addSubview(stackView)
 
         stackView.snp.makeConstraints { make in

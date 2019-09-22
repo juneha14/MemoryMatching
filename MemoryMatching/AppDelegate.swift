@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
 
-        let vc = GameContainerViewController()
+        let logicController = GameLogicController()
+        let vc = GameViewController(logicController: logicController)
         window?.rootViewController = vc
 
         return true

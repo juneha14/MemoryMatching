@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 
 
-class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    var didSelectCard: ((CardViewModel) -> Void)?
+class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GameLogicControllerDelegate {
 
     private var collectionView: UICollectionView!
-    private var cards: [CardViewModel]
+    private let logicController: GameLogicController
+    private var shownViewController: UIViewController?
 
     private struct Constants {
         static let insets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -25,8 +25,8 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
     // MARK: Init
 
-    init(cards: [CardViewModel]) {
-        self.cards = cards
+    init(logicController: GameLogicController) {
+        self.logicController = logicController
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -40,6 +40,19 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupViews()
+        logicController.delegate = self
+
+        render(.loading)
+        logicController.fetchCards { [weak self] state in
+            self?.render(state)
+        }
+    }
+
+
+    // MARK: Helpers
+
+    private func setupViews() {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = Constants.minimumLineSpacing
         layout.minimumInteritemSpacing = Constants.minimumInteritemSpacing
@@ -58,23 +71,37 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
     }
 
+    private func render(_ state: GameContentState) {
+        shownViewController?.remove()
 
-    // MARK: API
-
-    func hideCards(_ cards: [CardViewModel]) {
-        for card in cards {
-            guard let index = self.cards.firstIndex(where: { $0 === card }),
-                let cell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? CardCollectionViewCell else {
-                return
+        switch state {
+        case .loading:
+            let loadingViewController = LoadingViewController()
+            add(loadingViewController)
+            shownViewController = loadingViewController
+        case .failed(_):
+            break
+        case .showMenu:
+            break
+        case .presenting(_):
+            collectionView.reloadData()
+        case .finished:
+            let finishedViewController = GameFinishedViewController()
+            finishedViewController.playAgainSelected = { [weak self] in
+                if let cards = self?.logicController.createNewGame() {
+                    self?.render(.presenting(cards))
+                }
+            }
+            add(finishedViewController)
+            finishedViewController.view.snp.makeConstraints { make in
+                make.leading.equalToSuperview().offset(20)
+                make.trailing.equalToSuperview().inset(20)
+                make.height.equalTo(200)
+                make.centerY.equalToSuperview()
             }
 
-            cell.cardImageView.alpha = card.alpha
+            shownViewController = finishedViewController
         }
-    }
-
-    func startNewGame(with cards: [CardViewModel]) {
-        self.cards = cards
-        collectionView.reloadData()
     }
 
 
@@ -95,7 +122,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cards.count
+        return logicController.currentGameCards.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,7 +131,7 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         cell.backgroundColor = .red //DEBUG
-        cell.viewModel = cards[indexPath.row]
+        cell.viewModel = logicController.currentGameCards[indexPath.row]
     
         return cell
     }
@@ -117,7 +144,25 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
             return
         }
 
-        cell.cardImageView.alpha = 1
-        didSelectCard?(cell.viewModel)
+        cell.cardImageView.alpha = 1.0
+        logicController.didSelectCard(cell.viewModel)
+    }
+
+
+    // MARK: GameLogicControllerDelegate
+
+    func gameLogicControllerDidFinishGame(_ controller: GameLogicController) {
+        render(.finished)
+    }
+
+    func gameLogicController(_ controller: GameLogicController, hideCards cards: [CardViewModel]) {
+        for card in cards {
+            guard let index = logicController.index(of: card),
+                let cell = collectionView.cellForItem(at: IndexPath(row: index, section: 0)) as? CardCollectionViewCell else {
+                return
+            }
+
+            cell.cardImageView.alpha = card.alpha
+        }
     }
 }

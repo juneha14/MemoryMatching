@@ -10,7 +10,6 @@
 		4DAE6F9CCD6EC384C026976B /* Pods_MemoryMatchingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B53898E610B04595988C909 /* Pods_MemoryMatchingTests.framework */; };
 		A2A741DD80570577F4C41023 /* Pods_MemoryMatching.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A29EA83FD9703A79E40DC9F /* Pods_MemoryMatching.framework */; };
 		CDBC000023359F630058F258 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFF23359F630058F258 /* UIViewController+Extensions.swift */; };
-		CDBC000223359FE20058F258 /* GameContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC000123359FE20058F258 /* GameContainerViewController.swift */; };
 		CDBC00042335A0340058F258 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC00032335A0340058F258 /* LoadingViewController.swift */; };
 		CDBC00062336D1720058F258 /* GameFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC00052336D1720058F258 /* GameFinishedViewController.swift */; };
 		CDBCFFCF2332CECE0058F258 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */; };
@@ -21,7 +20,7 @@
 		CDBCFFF42332E4F50058F258 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF32332E4F50058F258 /* APIService.swift */; };
 		CDBCFFF62332E9F90058F258 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF52332E9F90058F258 /* Result.swift */; };
 		CDBCFFFA2332EE8E0058F258 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF92332EE8E0058F258 /* Card.swift */; };
-		CDBCFFFC233325600058F258 /* CardsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFB233325600058F258 /* CardsCollectionViewController.swift */; };
+		CDBCFFFC233325600058F258 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFB233325600058F258 /* GameViewController.swift */; };
 		CDBCFFFE233326170058F258 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,7 +41,6 @@
 		6B08B669A626C1E08DDB7415 /* Pods-MemoryMatching.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatching.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatching/Pods-MemoryMatching.release.xcconfig"; sourceTree = "<group>"; };
 		86BF7DCC8029956A002EE9E2 /* Pods-MemoryMatchingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatchingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatchingTests/Pods-MemoryMatchingTests.release.xcconfig"; sourceTree = "<group>"; };
 		A584FE9A4C7C33815743AF11 /* Pods-MemoryMatchingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatchingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatchingTests/Pods-MemoryMatchingTests.debug.xcconfig"; sourceTree = "<group>"; };
-		CDBC000123359FE20058F258 /* GameContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameContainerViewController.swift; sourceTree = "<group>"; };
 		CDBC00032335A0340058F258 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		CDBC00052336D1720058F258 /* GameFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFinishedViewController.swift; sourceTree = "<group>"; };
 		CDBCFFCB2332CECE0058F258 /* MemoryMatching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMatching.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,7 +55,7 @@
 		CDBCFFF32332E4F50058F258 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		CDBCFFF52332E9F90058F258 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CDBCFFF92332EE8E0058F258 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		CDBCFFFB233325600058F258 /* CardsCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsCollectionViewController.swift; sourceTree = "<group>"; };
+		CDBCFFFB233325600058F258 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		CDBCFFFF23359F630058F258 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,8 +165,7 @@
 		CDBCFFF72332EE6E0058F258 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				CDBC000123359FE20058F258 /* GameContainerViewController.swift */,
-				CDBCFFFB233325600058F258 /* CardsCollectionViewController.swift */,
+				CDBCFFFB233325600058F258 /* GameViewController.swift */,
 				CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */,
 				CDBC00032335A0340058F258 /* LoadingViewController.swift */,
 				CDBC00052336D1720058F258 /* GameFinishedViewController.swift */,
@@ -362,12 +359,11 @@
 				CDBCFFF62332E9F90058F258 /* Result.swift in Sources */,
 				CDBCFFCF2332CECE0058F258 /* AppDelegate.swift in Sources */,
 				CDBC00062336D1720058F258 /* GameFinishedViewController.swift in Sources */,
-				CDBC000223359FE20058F258 /* GameContainerViewController.swift in Sources */,
 				CDBCFFF42332E4F50058F258 /* APIService.swift in Sources */,
 				CDBC000023359F630058F258 /* UIViewController+Extensions.swift in Sources */,
 				CDBCFFFE233326170058F258 /* CardCollectionViewCell.swift in Sources */,
 				CDBC00042335A0340058F258 /* LoadingViewController.swift in Sources */,
-				CDBCFFFC233325600058F258 /* CardsCollectionViewController.swift in Sources */,
+				CDBCFFFC233325600058F258 /* GameViewController.swift in Sources */,
 				CDBCFFEF2332E2700058F258 /* GameLogicController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
