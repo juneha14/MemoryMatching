@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct APIService {
+final class APIService {
     static let instance = APIService()
     private let baseURL = URL(string: "https://shopicruit.myshopify.com/admin/products.json?page=1&access_token=c32313df0d0ef512ca64d5b336a0d7c6")!
 
@@ -30,7 +30,7 @@ struct APIService {
         var request = URLRequest(url: baseURL)
         request.httpMethod = "GET"
 
-        let task = URLSession.shared.dataTask(with: baseURL) { (data, _, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
             guard let data = data else {
                 DispatchQueue.main.async {
                     completion(.failure(.noResponse))

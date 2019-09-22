@@ -10,8 +10,20 @@ import UIKit
 import SnapKit
 import SDWebImage
 
+
 class CardCollectionViewCell: UICollectionViewCell {
     static let identifier = "CardCollectionViewCell"
+
+    lazy var cardImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .black
+        imageView.layer.borderColor = UIColor.blue.cgColor
+        imageView.layer.borderWidth = 1.5
+        return imageView
+    }()
 
     var viewModel: CardViewModel! {
         didSet {
@@ -19,21 +31,12 @@ class CardCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    var cardImageView: UIImageView!
-
 
     // MARK: Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        cardImageView = UIImageView()
-        cardImageView.translatesAutoresizingMaskIntoConstraints = false
-        cardImageView.contentMode = .scaleAspectFit
-        cardImageView.clipsToBounds = true
-        cardImageView.backgroundColor = .black
-        cardImageView.layer.borderColor = UIColor.blue.cgColor
-        cardImageView.layer.borderWidth = 1.5
         addSubview(cardImageView)
 
         cardImageView.snp.makeConstraints { make in
@@ -57,9 +60,9 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
 
 
-    // MARK: API
+    // MARK: Helpers
 
-    func render(_ viewModel: CardViewModel) {
+    private func render(_ viewModel: CardViewModel) {
         let imageURL = URL(string: viewModel.card.image.src)
         cardImageView.sd_setImage(with: imageURL, completed: nil)
         cardImageView.alpha = viewModel.alpha
