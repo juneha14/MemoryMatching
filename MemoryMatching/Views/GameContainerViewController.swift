@@ -47,6 +47,12 @@ class GameContainerViewController: UIViewController, CardsCollectionViewControll
         cardsVC.hideCards(cards)
     }
 
+    func entityManagerGameDidFinish(_ entityManager: EntityManager) {
+        transition(to: .finished)
+
+//        showFinishedAlertController()
+    }
+
 
     // MARK: Helpers
 
@@ -70,7 +76,36 @@ class GameContainerViewController: UIViewController, CardsCollectionViewControll
             vc.delegate = self
             return vc
         case .finished:
-            return UIViewController()
+            let vc = GameFinishedViewController()
+            vc.playAgainSelected = { [weak self] in
+                self?.handlePlayAgainTap()
+            }
+            return vc
         }
+    }
+
+    private func handlePlayAgainTap() {
+        entityManager.createNewGame { [weak self] state in
+            self?.transition(to: state)
+        }
+    }
+
+    private func showFinishedAlertController() {
+        let alertController = UIAlertController(title: "Hoooray!", message: "You're a memory genius!", preferredStyle: .alert)
+        let playAgainAction = UIAlertAction(title: "Play Again?", style: .default) { [weak self] _ in
+            self?.handleTap()
+        }
+
+        alertController.addAction(playAgainAction)
+        shownViewController?.present(alertController, animated: true, completion: nil)
+    }
+
+    private func handleTap() {
+        guard let vc = shownViewController as? CardsCollectionViewController else {
+            return
+        }
+
+        let newCards = entityManager.createNewGame()
+        vc.startNewGame(with: newCards)
     }
 }

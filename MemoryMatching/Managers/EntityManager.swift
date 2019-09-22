@@ -18,6 +18,7 @@ enum GameState {
 
 protocol EntityManagerDelegate: AnyObject {
     func entityManager(_ entityManager: EntityManager, hideCards cards: [CardViewModel])
+    func entityManagerGameDidFinish(_ entityManager: EntityManager)
 }
 
 final class EntityManager {
@@ -34,6 +35,9 @@ final class EntityManager {
     /// Cards that are flipped for guessing
     private var selectedCards = [CardViewModel]()
 
+    /// All cards that have been correctly guessed and therefore flipped
+    private var flippedCards = [CardViewModel]()
+
 
     // MARK: API
 
@@ -42,7 +46,8 @@ final class EntityManager {
         APIService.instance.get { [weak self] (result: Result<Card.Container, APIService.APIError>) in
             switch result {
             case let .success(cards):
-                self?.storeEntitiesAndCreateGame(cards, completion: completion)
+                self?.entities = cards.products.map({ CardViewModel(card: $0) })
+                self?.createNewGame(completion: completion)
             case let .failure(error):
                 completion(.failed(error))
             }
@@ -54,6 +59,8 @@ final class EntityManager {
         guard !entities.isEmpty else {
             return []
         }
+
+        resetGame()
 
         let shuffled = entities.shuffled()[0..<10]
         var newGameCards = [CardViewModel]()
@@ -69,6 +76,49 @@ final class EntityManager {
         return currentGameCards
     }
 
+    func createNewGame() -> GameState? {
+        guard !entities.isEmpty else {
+            return nil
+        }
+
+        resetGame()
+
+        let shuffled = entities.shuffled()[0..<10]
+        var newGameCards = [CardViewModel]()
+
+        // TODO: change iteration to n depending on how many consecutive cards need to be matched
+        for _ in 1...2 {
+            for card in shuffled {
+                newGameCards.append(card.copy() as! CardViewModel)
+            }
+        }
+
+        currentGameCards = newGameCards.shuffled()
+        return .presenting(currentGameCards)
+    }
+
+    /// Creates new game by randomly choosing 10 cards and duplicating them
+    func createNewGame(completion: @escaping Handler) {
+        guard !entities.isEmpty else {
+            return
+        }
+
+        resetGame()
+
+        let shuffled = entities.shuffled()[0..<10]
+        var newGameCards = [CardViewModel]()
+
+        // TODO: change iteration to n depending on how many consecutive cards need to be matched
+        for _ in 1...2 {
+            for card in shuffled {
+                newGameCards.append(card.copy() as! CardViewModel)
+            }
+        }
+
+        currentGameCards = newGameCards.shuffled()
+        completion(.presenting(currentGameCards))
+    }
+
     func didSelectCard(_ card: CardViewModel?) {
         guard let card = card, card.state == .notGuessed else {
             return
@@ -78,6 +128,12 @@ final class EntityManager {
         selectedCards.append(card)
 
         if cardsDoMatch(selectedCards) {
+            flippedCards += selectedCards
+
+            if flippedCards.count == currentGameCards.count {
+                delegate?.entityManagerGameDidFinish(self)
+            }
+
             if selectedCards.count == 2 {
                 for card in selectedCards {
                     card.set(.guessed)
@@ -92,8 +148,12 @@ final class EntityManager {
             }
 
             let cardsToHide = selectedCards
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.delegate?.entityManager(self, hideCards: cardsToHide)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+
+                strongSelf.delegate?.entityManager(strongSelf, hideCards: cardsToHide)
             }
 
             selectedCards.removeAll()
@@ -112,12 +172,7 @@ final class EntityManager {
 
 
     // MARK: Helpers
-
-    private func storeEntitiesAndCreateGame(_ cards: Card.Container, completion: @escaping Handler) {
-        entities = cards.products.map({ CardViewModel(card: $0) })
-        completion(.presenting(createNewGame()))
-    }
-
+    
     private func cardsDoMatch(_ cards: [CardViewModel]) -> Bool {
         guard cards.count > 1 else {
             return false
@@ -130,5 +185,11 @@ final class EntityManager {
         }
 
         return true
+    }
+
+    private func resetGame() {
+        currentGameCards = []
+        selectedCards = []
+        flippedCards = []
     }
 }

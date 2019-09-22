@@ -75,6 +75,11 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
     }
 
+    func startNewGame(with cards: [CardViewModel]) {
+        self.cards = cards
+        collectionView.reloadData()
+    }
+
 
     // MARK: UICollectionViewDelegateFlowLayout
 
