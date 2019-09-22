@@ -17,7 +17,7 @@
 		CDBCFFD62332CED20058F258 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD52332CED20058F258 /* Assets.xcassets */; };
 		CDBCFFD92332CED20058F258 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD72332CED20058F258 /* LaunchScreen.storyboard */; };
 		CDBCFFE42332CED20058F258 /* MemoryMatchingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFE32332CED20058F258 /* MemoryMatchingTests.swift */; };
-		CDBCFFEF2332E2700058F258 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFEE2332E2700058F258 /* EntityManager.swift */; };
+		CDBCFFEF2332E2700058F258 /* GameLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFEE2332E2700058F258 /* GameLogicController.swift */; };
 		CDBCFFF42332E4F50058F258 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF32332E4F50058F258 /* APIService.swift */; };
 		CDBCFFF62332E9F90058F258 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF52332E9F90058F258 /* Result.swift */; };
 		CDBCFFFA2332EE8E0058F258 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFF92332EE8E0058F258 /* Card.swift */; };
@@ -53,7 +53,7 @@
 		CDBCFFDF2332CED20058F258 /* MemoryMatchingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryMatchingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDBCFFE32332CED20058F258 /* MemoryMatchingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMatchingTests.swift; sourceTree = "<group>"; };
 		CDBCFFE52332CED20058F258 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CDBCFFEE2332E2700058F258 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		CDBCFFEE2332E2700058F258 /* GameLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLogicController.swift; sourceTree = "<group>"; };
 		CDBCFFF32332E4F50058F258 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		CDBCFFF52332E9F90058F258 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		CDBCFFF92332EE8E0058F258 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 		CDBCFFF22332E4100058F258 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				CDBCFFEE2332E2700058F258 /* EntityManager.swift */,
+				CDBCFFEE2332E2700058F258 /* GameLogicController.swift */,
 				CDBCFFF32332E4F50058F258 /* APIService.swift */,
 				CDBCFFF52332E9F90058F258 /* Result.swift */,
 			);
@@ -368,7 +368,7 @@
 				CDBCFFFE233326170058F258 /* CardCollectionViewCell.swift in Sources */,
 				CDBC00042335A0340058F258 /* LoadingViewController.swift in Sources */,
 				CDBCFFFC233325600058F258 /* CardsCollectionViewController.swift in Sources */,
-				CDBCFFEF2332E2700058F258 /* EntityManager.swift in Sources */,
+				CDBCFFEF2332E2700058F258 /* GameLogicController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

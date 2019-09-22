@@ -10,12 +10,9 @@ import UIKit
 import SnapKit
 
 
-protocol CardsCollectionViewControllerDelegate: AnyObject {
-    func cardsCollectionViewController(_ cardsCollectionViewController: CardsCollectionViewController, didSelect card: CardViewModel)
-}
-
 class CardsCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    weak var delegate: CardsCollectionViewControllerDelegate?
+    var didSelectCard: ((CardViewModel) -> Void)?
+
     private var collectionView: UICollectionView!
     private var cards: [CardViewModel]
 
@@ -121,6 +118,6 @@ class CardsCollectionViewController: UIViewController, UICollectionViewDataSourc
         }
 
         cell.cardImageView.alpha = 1
-        delegate?.cardsCollectionViewController(self, didSelect: cell.viewModel)
+        didSelectCard?(cell.viewModel)
     }
 }

@@ -9,61 +9,51 @@
 import UIKit
 
 
-class GameContainerViewController: UIViewController, CardsCollectionViewControllerDelegate, EntityManagerDelegate {
-    private let entityManager = EntityManager()
-    private var state: GameState?
-    private var shownViewController: UIViewController?
+class GameContainerViewController: UIViewController {
+    private(set) var state: GameState?
+    private(set) var shownViewController: UIViewController?
+    private var logicController: GameLogicController
 
+
+    // MARK: Init
+
+    init(logicController: GameLogicController = GameLogicController()) {
+        self.logicController = logicController
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        entityManager.delegate = self
 
         if state == nil {
             transition(to: .loading)
         }
 
-        entityManager.fetchCards { [weak self] state in
+        logicController.fetchCards { [weak self] state in
             self?.transition(to: state)
         }
     }
 
 
-    // MARK: CardsCollectionViewControllerDelegate
+    // MARK: API
 
-    func cardsCollectionViewController(_ cardsCollectionViewController: CardsCollectionViewController, didSelect card: CardViewModel) {
-        entityManager.didSelectCard(card)
-    }
-
-
-    // MARK: EntityManagerDelegate
-
-    func entityManager(_ entityManager: EntityManager, hideCards cards: [CardViewModel]) {
-        guard let cardsVC = shownViewController as? CardsCollectionViewController else {
-            return
-        }
-
-        cardsVC.hideCards(cards)
-    }
-
-    func entityManagerGameDidFinish(_ entityManager: EntityManager) {
-        transition(to: .finished)
-
-//        showFinishedAlertController()
-    }
-
-
-    // MARK: Helpers
-
-    private func transition(to newState: GameState) {
+    func transition(to newState: GameState) {
         shownViewController?.remove()
-
         let vc = viewController(for: newState)
         add(vc)
         shownViewController = vc
         state = newState
     }
+
+
+    // MARK: Helpers
 
     private func viewController(for state: GameState) -> UIViewController {
         switch state {
@@ -73,20 +63,12 @@ class GameContainerViewController: UIViewController, CardsCollectionViewControll
             return UIViewController()
         case .presenting(let cards):
             let vc = CardsCollectionViewController(cards: cards)
-            vc.delegate = self
+            vc.didSelectCard = didSelectCard
             return vc
         case .finished:
             let vc = GameFinishedViewController()
-            vc.playAgainSelected = { [weak self] in
-                self?.handlePlayAgainTap()
-            }
+            vc.playAgainSelected = didSelectPlayAgain
             return vc
-        }
-    }
-
-    private func handlePlayAgainTap() {
-        entityManager.createNewGame { [weak self] state in
-            self?.transition(to: state)
         }
     }
 
@@ -101,11 +83,38 @@ class GameContainerViewController: UIViewController, CardsCollectionViewControll
     }
 
     private func handleTap() {
-        guard let vc = shownViewController as? CardsCollectionViewController else {
+        let newCards = logicController.createNewGame(completion: nil)
+
+        if let cardsCVC = shownViewController as? CardsCollectionViewController {
+            cardsCVC.startNewGame(with: newCards)
+        } else {
+            transition(to: .loading)
+        }
+    }
+
+    private func hide(_ cards: [CardViewModel]) {
+        guard let cardsCVC = shownViewController as? CardsCollectionViewController else {
             return
         }
 
-        let newCards = entityManager.createNewGame()
-        vc.startNewGame(with: newCards)
+        cardsCVC.hideCards(cards)
+    }
+
+
+    // MARK: Handlers
+
+    private func didSelectCard(_ card: CardViewModel) {
+        logicController.didSelectCard(card, didFinishGame: { [weak self] in
+//            self?.transition(to: .finished)
+            self?.showFinishedAlertController()
+        }) { [weak self] cards in
+            self?.hide(cards)
+        }
+    }
+
+    private func didSelectPlayAgain() {
+        logicController.createNewGame { [weak self] state in
+            self?.transition(to: state)
+        }
     }
 }
