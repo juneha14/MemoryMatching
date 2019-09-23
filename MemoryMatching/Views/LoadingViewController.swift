@@ -11,7 +11,7 @@ import SnapKit
 
 
 class LoadingViewController: UIViewController {
-    private lazy var activityIndicator = UIActivityIndicatorView(style: .gray)
+    private lazy var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
 
 
     override func viewDidLoad() {
@@ -21,8 +21,7 @@ class LoadingViewController: UIViewController {
         view.addSubview(activityIndicator)
 
         activityIndicator.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.center.equalToSuperview()
         }
     }
 

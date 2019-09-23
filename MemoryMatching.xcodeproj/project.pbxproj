@@ -137,7 +137,7 @@
 			children = (
 				CDBCFFF82332EE7B0058F258 /* Models */,
 				CDBCFFF72332EE6E0058F258 /* Views */,
-				CDBCFFF22332E4100058F258 /* Managers */,
+				CDBCFFF22332E4100058F258 /* Helpers */,
 				CDBC00092336F81F0058F258 /* Extensions */,
 				CDBCFFD52332CED20058F258 /* Assets.xcassets */,
 				CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */,
@@ -156,14 +156,14 @@
 			path = MemoryMatchingTests;
 			sourceTree = "<group>";
 		};
-		CDBCFFF22332E4100058F258 /* Managers */ = {
+		CDBCFFF22332E4100058F258 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				CDBCFFEE2332E2700058F258 /* GameLogicController.swift */,
 				CDBCFFF32332E4F50058F258 /* APIService.swift */,
 				CDBCFFF52332E9F90058F258 /* Result.swift */,
 			);
-			path = Managers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		CDBCFFF72332EE6E0058F258 /* Views */ = {

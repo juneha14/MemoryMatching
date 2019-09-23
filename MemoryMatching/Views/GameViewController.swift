@@ -149,7 +149,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             return
         }
 
-        cell.cardImageView.alpha = 1.0
+        cell.showCard(true)
         logicController.didSelectCard(cell.viewModel)
     }
 
@@ -167,7 +167,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 return
             }
 
-            cell.cardImageView.alpha = card.alpha
+            cell.showCard(false)
         }
     }
 
