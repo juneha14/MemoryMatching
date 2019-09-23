@@ -15,12 +15,19 @@ class ScoreView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.numberOfLines = 1
-        label.text = "2 pairs out of 10 found"
+        label.numberOfLines = 2
+        label.text = "0 pairs out of 10 found"
         label.font = UIFont(name: "AvenirNext-Bold", size: 25.0)
         label.textColor = .white
         return label
     }()
+
+    var score: Int = 0 {
+        didSet {
+            let pairText = score == 1 ? " pair " : " pairs "
+            scoreLabel.text = "\(score)" + pairText + "out of 10 found"
+        }
+    }
 
 
     // MARK: Init
@@ -28,8 +35,7 @@ class ScoreView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        layer.cornerRadius = 5.0
-        backgroundColor = UIColor(red:0.97, green:0.47, blue:0.47, alpha:1.0)
+        backgroundColor = UIColor(red: 0.62, green: 0.45, blue: 0.4, alpha: 0.8)
 
         addSubview(scoreLabel)
 
@@ -43,5 +49,12 @@ class ScoreView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+
+    // MARK: API
+
+    func resetScore() {
+        score = 0
     }
 }

@@ -20,6 +20,7 @@ enum GameContentState {
 protocol GameLogicControllerDelegate: AnyObject {
     func gameLogicControllerDidFinishGame(_ controller: GameLogicController)
     func gameLogicController(_ controller: GameLogicController, hideCards cards: [CardViewModel])
+    func gameLogicControllerDidMatchCards(_ controller: GameLogicController)
 }
 
 final class GameLogicController {
@@ -33,11 +34,11 @@ final class GameLogicController {
     /// The current subset of cards belonging to a particular game
     private(set) var currentGameCards = [CardViewModel]()
 
+    /// All cards that have been correctly guessed and therefore flipped
+    private(set) var flippedCards = [CardViewModel]()
+
     /// Cards that are flipped for guessing
     private var selectedCards = [CardViewModel]()
-
-    /// All cards that have been correctly guessed and therefore flipped
-    private var flippedCards = [CardViewModel]()
 
 
     // MARK: API
@@ -77,6 +78,8 @@ final class GameLogicController {
             flippedCards += selectedCards
 
             if selectedCards.count == 2 {
+                delegate?.gameLogicControllerDidMatchCards(self)
+
                 for card in selectedCards {
                     card.set(.guessed)
                 }

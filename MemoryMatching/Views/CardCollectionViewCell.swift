@@ -19,8 +19,8 @@ class CardCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .black
-        imageView.layer.borderColor = UIColor.blue.cgColor
+        imageView.backgroundColor = UIColor(red:0.68, green:0.45, blue:0.45, alpha:1.0)
+        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 1.5
         return imageView
     }()
