@@ -12,7 +12,18 @@ import SnapKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GameLogicControllerDelegate {
 
-    private var collectionView: UICollectionView!
+    private unowned var gameView: GameView {
+        return self.view as! GameView
+    }
+
+    private unowned var scoreView: ScoreView {
+        return gameView.scoreView
+    }
+
+    private unowned var collectionView: UICollectionView {
+        return gameView.collectionView
+    }
+
     private let logicController: GameLogicController
     private var shownViewController: UIViewController?
 
@@ -37,11 +48,14 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
 
     // MARK: Lifecycle
 
+    override func loadView() {
+        self.view = GameView()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupViews()
-        logicController.delegate = self
+        registerViews()
 
         render(.loading)
         logicController.fetchCards { [weak self] state in
@@ -50,26 +64,17 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
 
 
-    // MARK: Helpers
+    // MARK: Setup
 
-    private func setupViews() {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = Constants.minimumLineSpacing
-        layout.minimumInteritemSpacing = Constants.minimumInteritemSpacing
-        layout.sectionInset = Constants.insets
-        layout.scrollDirection = .vertical
-
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
+    private func registerViews() {
+        logicController.delegate = self
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
-        view.addSubview(collectionView)
-
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
     }
+
+
+    // MARK: Helpers
 
     private func render(_ state: GameContentState) {
         shownViewController?.remove()
@@ -84,6 +89,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         case .showMenu:
             break
         case .presenting(_):
+            scoreView.resetScore()
             collectionView.reloadData()
         case .finished:
             let finishedViewController = GameFinishedViewController()
@@ -130,7 +136,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             return UICollectionViewCell()
         }
 
-        cell.backgroundColor = .red //DEBUG
         cell.viewModel = logicController.currentGameCards[indexPath.row]
     
         return cell
@@ -144,7 +149,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             return
         }
 
-        cell.cardImageView.alpha = 1.0
+        cell.showCard(true)
         logicController.didSelectCard(cell.viewModel)
     }
 
@@ -162,7 +167,11 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 return
             }
 
-            cell.cardImageView.alpha = card.alpha
+            cell.showCard(false)
         }
+    }
+
+    func gameLogicControllerDidMatchCards(_ controller: GameLogicController) {
+        scoreView.score += 1
     }
 }

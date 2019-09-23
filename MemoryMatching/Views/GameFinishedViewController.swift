@@ -16,7 +16,7 @@ class GameFinishedViewController: UIViewController {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hoooray!\nYou're a memory genius!"
+        label.text = "⭐️⭐️⭐️Hoooray!⭐️⭐️⭐️\nYou're a memory genius!"
         label.textAlignment = .center
         label.numberOfLines = 2
         label.font = UIFont(name: "AvenirNext-Regular", size: 17.0)
@@ -67,8 +67,8 @@ class GameFinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(red:0.55, green:0.38, blue:0.38, alpha:1.0)
-        view.layer.cornerRadius = 5.0
+        view.backgroundColor = UIColor(red: 0.18, green: 0.51, blue: 0.72, alpha: 1.0)
+        view.layer.cornerRadius = 15
         view.addSubview(stackView)
 
         stackView.snp.makeConstraints { make in

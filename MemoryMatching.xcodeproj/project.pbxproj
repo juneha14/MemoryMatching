@@ -12,6 +12,8 @@
 		CDBC000023359F630058F258 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFFF23359F630058F258 /* UIViewController+Extensions.swift */; };
 		CDBC00042335A0340058F258 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC00032335A0340058F258 /* LoadingViewController.swift */; };
 		CDBC00062336D1720058F258 /* GameFinishedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC00052336D1720058F258 /* GameFinishedViewController.swift */; };
+		CDBC000D233829DA0058F258 /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC000C233829DA0058F258 /* ScoreView.swift */; };
+		CDBC000F23383F960058F258 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBC000E23383F960058F258 /* GameView.swift */; };
 		CDBCFFCF2332CECE0058F258 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */; };
 		CDBCFFD62332CED20058F258 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD52332CED20058F258 /* Assets.xcassets */; };
 		CDBCFFD92332CED20058F258 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDBCFFD72332CED20058F258 /* LaunchScreen.storyboard */; };
@@ -43,6 +45,8 @@
 		A584FE9A4C7C33815743AF11 /* Pods-MemoryMatchingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryMatchingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MemoryMatchingTests/Pods-MemoryMatchingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDBC00032335A0340058F258 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		CDBC00052336D1720058F258 /* GameFinishedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFinishedViewController.swift; sourceTree = "<group>"; };
+		CDBC000C233829DA0058F258 /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
+		CDBC000E23383F960058F258 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		CDBCFFCB2332CECE0058F258 /* MemoryMatching.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemoryMatching.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDBCFFD52332CED20058F258 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,7 +137,7 @@
 			children = (
 				CDBCFFF82332EE7B0058F258 /* Models */,
 				CDBCFFF72332EE6E0058F258 /* Views */,
-				CDBCFFF22332E4100058F258 /* Managers */,
+				CDBCFFF22332E4100058F258 /* Helpers */,
 				CDBC00092336F81F0058F258 /* Extensions */,
 				CDBCFFD52332CED20058F258 /* Assets.xcassets */,
 				CDBCFFCE2332CECE0058F258 /* AppDelegate.swift */,
@@ -152,14 +156,14 @@
 			path = MemoryMatchingTests;
 			sourceTree = "<group>";
 		};
-		CDBCFFF22332E4100058F258 /* Managers */ = {
+		CDBCFFF22332E4100058F258 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				CDBCFFEE2332E2700058F258 /* GameLogicController.swift */,
 				CDBCFFF32332E4F50058F258 /* APIService.swift */,
 				CDBCFFF52332E9F90058F258 /* Result.swift */,
 			);
-			path = Managers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		CDBCFFF72332EE6E0058F258 /* Views */ = {
@@ -169,6 +173,8 @@
 				CDBCFFFD233326170058F258 /* CardCollectionViewCell.swift */,
 				CDBC00032335A0340058F258 /* LoadingViewController.swift */,
 				CDBC00052336D1720058F258 /* GameFinishedViewController.swift */,
+				CDBC000C233829DA0058F258 /* ScoreView.swift */,
+				CDBC000E23383F960058F258 /* GameView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,8 +368,10 @@
 				CDBCFFF42332E4F50058F258 /* APIService.swift in Sources */,
 				CDBC000023359F630058F258 /* UIViewController+Extensions.swift in Sources */,
 				CDBCFFFE233326170058F258 /* CardCollectionViewCell.swift in Sources */,
+				CDBC000D233829DA0058F258 /* ScoreView.swift in Sources */,
 				CDBC00042335A0340058F258 /* LoadingViewController.swift in Sources */,
 				CDBCFFFC233325600058F258 /* GameViewController.swift in Sources */,
+				CDBC000F23383F960058F258 /* GameView.swift in Sources */,
 				CDBCFFEF2332E2700058F258 /* GameLogicController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
