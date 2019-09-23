@@ -67,8 +67,8 @@ class GameFinishedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(red:0.89, green:0.59, blue:0.27, alpha:1.0)
-        view.layer.cornerRadius = 5.0
+        view.backgroundColor = UIColor(red: 0.18, green: 0.51, blue: 0.72, alpha: 1.0)
+        view.layer.cornerRadius = 15
         view.addSubview(stackView)
 
         stackView.snp.makeConstraints { make in
